@@ -13,4 +13,6 @@ module com.simplerp.morpion {
 
     opens com.simplerp.morpion to javafx.fxml;
     exports com.simplerp.morpion;
+    exports com.simplerp.morpion.accueille;
+    opens com.simplerp.morpion.accueille to javafx.fxml;
 }
