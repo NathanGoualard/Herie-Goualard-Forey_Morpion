@@ -12,7 +12,7 @@ module com.simplerp.morpion {
     requires com.almasb.fxgl.all;
 
     opens com.simplerp.morpion to javafx.fxml;
-    exports com.simplerp.morpion;
+
     exports com.simplerp.morpion.accueille;
     opens com.simplerp.morpion.accueille to javafx.fxml;
 }
