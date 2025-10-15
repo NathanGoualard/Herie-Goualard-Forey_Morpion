@@ -10,6 +10,7 @@ module com.simplerp.morpion {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires annotations;
 
     exports com.simplerp.morpion.accueil;
     opens com.simplerp.morpion.accueil to javafx.fxml;
