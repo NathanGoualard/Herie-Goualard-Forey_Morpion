@@ -11,6 +11,7 @@ module com.simplerp.morpion {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires annotations;
+    requires java.sql;
 
     exports com.simplerp.morpion.accueil;
     opens com.simplerp.morpion.accueil to javafx.fxml;
