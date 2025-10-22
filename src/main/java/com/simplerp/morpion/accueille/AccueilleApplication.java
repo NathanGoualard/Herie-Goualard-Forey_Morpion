@@ -12,8 +12,7 @@ public class AccueilleApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AccueilleApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        scene.getStylesheets().add(getClass().getResource("/com/simplerp/morpion/CSS/StyleScore.css").toExternalForm());
-        stage.setTitle("Score");
+        stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
     }
