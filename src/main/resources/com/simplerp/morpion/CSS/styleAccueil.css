@@ -1,0 +1,42 @@
+.titre {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-alignment: center;
+}
+
+.menu-bouton {
+    -fx-font-size: 24px;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #000000;
+    -fx-background-radius: 10;
+    -fx-padding: 15px 40px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10;
+    -fx-pref-width: 250px;
+    -fx-pref-height: 50px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #222222, 6, 0.6, 0, 2);
+    -fx-transition: all 0.12s;
+}
+
+/* Hover inversement de couleurs (fond blanc, texte noir) */
+.menu-bouton:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-effect: dropshadow(gaussian, #000000, 8, 0.6, 0, 2);
+}
+
+/* Pressed */
+.menu-bouton:pressed {
+    -fx-background-color: #CCCCCC;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-effect: dropshadow(gaussian, #000000, 6, 0.5, 0, 2);
+}
+
+.root, .vbox {
+    -fx-background-color: #000000;
+}
