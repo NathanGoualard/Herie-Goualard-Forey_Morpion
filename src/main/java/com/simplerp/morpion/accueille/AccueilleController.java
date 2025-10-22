@@ -1,34 +1,18 @@
 package com.simplerp.morpion.accueille;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.event.ActionEvent;
 
 public class AccueilleController {
 
-    @FXML
-    private Button bouton1Joueur;
-
-    @FXML
-    private Button bouton2Joueurs;
-
-    @FXML
-    private Button boutonScores;
-
-    @FXML
-    private void lancer1Joueur() {
-        System.out.println("Page 1 Joueur !");
-        // TODO: charger une autre scène ou fenêtre
+    public void onJoueur1(ActionEvent event) {
+        System.out.println("Bouton 1 Joueur cliqué !");
     }
 
-    @FXML
-    private void lancer2Joueurs() {
-        System.out.println("Page 2 Joueurs !");
-        // TODO: charger une autre scène ou fenêtre
+    public void onJoueur2(ActionEvent event) {
+        System.out.println("Bouton 2 Joueurs cliqué !");
     }
 
-    @FXML
-    private void afficherScores() {
-        System.out.println("Page Scores !");
-        // TODO: charger une autre scène ou fenêtre
+    public void onScores(ActionEvent event) {
+        System.out.println("Bouton Scores cliqué !");
     }
 }

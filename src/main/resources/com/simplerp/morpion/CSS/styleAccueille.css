@@ -1,74 +1,42 @@
-
-
-@font-face {
-    font-family: "PressStart2P";
-    src: url("../fonts/PressStart2P-Regular.ttf"); /* ../ pour remonter vers fonts */
-}
-
-
-.root {
-    -fx-background-color: black;
-    -fx-padding: 20;
-    -fx-font-smoothing-type: gray;
-}
-
-
-.vbox {
-    -fx-spacing: 20px;
-    -fx-alignment: CENTER;
-}
-
-
-.label.title {
-    -fx-text-fill: white;
-    -fx-font-size: 36px;
-    -fx-font-family: "PressStart2P";
-    -fx-effect: dropshadow(gaussian, black, 4, 0.0, 0, 2); /* léger relief */
+.titre {
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
     -fx-alignment: center;
 }
 
-
-.button {
-    -fx-background-color: transparent;
-    -fx-text-fill: white;
-    -fx-font-family: "PressStart2P";
-    -fx-font-size: 12px;
-    -fx-border-color: white;
-    -fx-border-width: 3px;
-    -fx-border-style: solid;
-    -fx-padding: 8 18 8 18;
-    -fx-cursor: hand;
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
-    -fx-effect: dropshadow(one-pass-box, rgba(255,255,255,0.06), 0, 0.0, 0, 1);
-}
-
-
-.button:hover {
-    -fx-background-color: white;
-    -fx-text-fill: black;
-}
-
-
-.button:pressed {
-    -fx-translate-y: 2;
+.menu-bouton {
+    -fx-font-size: 24px;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #000000;
+    -fx-background-radius: 10;
+    -fx-padding: 15px 40px;
+    -fx-border-color: #FFFFFF;
     -fx-border-width: 2px;
+    -fx-border-radius: 10;
+    -fx-pref-width: 250px;
+    -fx-pref-height: 50px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #222222, 6, 0.6, 0, 2);
+    -fx-transition: all 0.12s;
 }
 
-
-.label.small {
-    -fx-text-fill: white;
-    -fx-font-size: 10px;
-    -fx-font-family: "";
+/* Hover inversement de couleurs (fond blanc, texte noir) */
+.menu-bouton:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-effect: dropshadow(gaussian, #000000, 8, 0.6, 0, 2);
 }
 
-
-.root .pixel-frame {
-    -fx-border-color: white;
-    -fx-border-width: 6px;
-    -fx-padding: 12;
+/* Pressed */
+.menu-bouton:pressed {
+    -fx-background-color: #CCCCCC;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+    -fx-effect: dropshadow(gaussian, #000000, 6, 0.5, 0, 2);
 }
 
-.root, .label, .button {
-    -fx-font-smoothing-type: gray;
+.root, .vbox {
+    -fx-background-color: #000000;
 }
