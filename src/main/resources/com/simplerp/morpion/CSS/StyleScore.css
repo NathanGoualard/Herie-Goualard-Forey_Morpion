@@ -1,0 +1,41 @@
+#vboxPrincipal {
+    -fx-background-color: black;
+    -fx-alignment: center;
+    -fx-padding: 30;
+}
+
+#TitreScore{
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-size: 60;
+}
+
+#scoreTable{
+    -fx-alignment: center;
+    -fx-text-fill: white;
+    -fx-background-color: black;
+}
+
+.table-view {
+    -fx-background-color: black;
+    -fx-border-color: white;
+    -fx-border-width: 1;
+}
+
+#rankColumn, #playerColumn, #scoreColumn{
+    -fx-background-color: black;
+    -fx-border-color: white;
+    -fx-border-width: 0 0 1 1;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+
+}
+
+.table-cell {
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+
+
+
+

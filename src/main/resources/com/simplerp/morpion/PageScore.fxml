@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.simplerp.morpion.score.ScoreController"
+            id="AnchorPane1">
+    <children>
+        <VBox fx:id="vboxPrincipal" alignment="CENTER" spacing="20" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <Label fx:id="TitreScore" text="SCORES"/>
+            <VBox>
+                <TableView fx:id="scoreTable">
+                    <columns>
+                        <TableColumn fx:id="rankColumn" text="#"/>
+                        <TableColumn fx:id="playerColumn" text="Nom du joueur" />
+                        <TableColumn fx:id="scoreColumn" text="Score"/>
+                    </columns>
+                </TableView>
+            </VBox>
+
+        </VBox>
+    </children>
+</AnchorPane>
+
+
