@@ -5,8 +5,12 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Toggle;
+import javafx.scene.control.Alert;
 import javafx.event.ActionEvent;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import com.simplerp.morpion.Db;
+import com.simplerp.morpion.pageJeu.JeuApplication;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +27,7 @@ public class CreationController {
 
     @FXML
     public void initialize() {
-        System.out.println("CreationController initialisé");
-        loadPlayersToComboBoxes();
+        chargerJoueursComboBoxes();
         if (gridSizeGroup != null && gridSizeGroup.getSelectedToggle() == null && !gridSizeGroup.getToggles().isEmpty()) {
             gridSizeGroup.selectToggle(gridSizeGroup.getToggles().get(0));
         }
@@ -32,19 +35,125 @@ public class CreationController {
 
     @FXML
     public void onStartGame(ActionEvent event) {
-        String name1 = getPlayerName(player1TextField, player1ComboBox);
-        String name2 = getPlayerName(player2TextField, player2ComboBox);
-        if (name1 == null || name1.isBlank() || name2 == null || name2.isBlank()) {
-            System.out.println("Veuillez renseigner un nom pour les deux joueurs.");
+        // Récupérer les noms des joueurs
+        String nomJoueur1 = obtenirNomJoueur(player1TextField, player1ComboBox);
+        String nomJoueur2 = obtenirNomJoueur(player2TextField, player2ComboBox);
+
+        if (nomJoueur1 == null || nomJoueur1.isBlank() || nomJoueur2 == null || nomJoueur2.isBlank()) {
+            afficherAlerte("Erreur", "Veuillez entrer les noms des deux joueurs !");
             return;
         }
-        int gridSize = getSelectedGridSize();
-        System.out.println("Démarrage : " + name1 + " vs " + name2 + " — grille " + gridSize + "x" + gridSize);
-        savePlayerIfNotExists(name1);
-        savePlayerIfNotExists(name2);
+
+        int tailleGrille = obtenirTailleGrilleSelectionnee();
+
+        // Sauvegarder les joueurs s'ils n'existent pas
+        sauvegarderJoueurSiNonExistant(nomJoueur1);
+        sauvegarderJoueurSiNonExistant(nomJoueur2);
+
+        // Récupérer les IDs des joueurs
+        int idJoueur1 = obtenirIdJoueur(nomJoueur1);
+        int idJoueur2 = obtenirIdJoueur(nomJoueur2);
+
+        if (idJoueur1 == -1 || idJoueur2 == -1) {
+            afficherAlerte("Erreur", "Impossible de récupérer les joueurs.");
+            return;
+        }
+
+        // Vérifier si une partie est déjà en cours
+        if (partieEnCours()) {
+            afficherAlerte("Partie en cours", "Une partie est déjà en cours. Veuillez la terminer avant d'en commencer une nouvelle.");
+            return;
+        }
+
+        // Créer une nouvelle partie
+        if (creerNouvellePartie(idJoueur1, idJoueur2)) {
+            // Stocker les infos de la partie pour JeuApplication
+            JeuApplication.nomJoueur1 = nomJoueur1;
+            JeuApplication.nomJoueur2 = nomJoueur2;
+            JeuApplication.tailleGrille = tailleGrille;
+            JeuApplication.idJoueur1 = idJoueur1;
+            JeuApplication.idJoueur2 = idJoueur2;
+
+            // Fermer la fenêtre actuelle
+            Stage stageActuel = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stageActuel.close();
+
+            // Lancer JeuApplication
+            try {
+                JeuApplication jeuApp = new JeuApplication();
+                jeuApp.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+                afficherAlerte("Erreur", "Impossible de lancer le jeu.");
+            }
+        } else {
+            afficherAlerte("Erreur", "Impossible de créer la partie.");
+        }
     }
 
-    private int getSelectedGridSize() {
+    private boolean partieEnCours() {
+        String requete = "SELECT COUNT(*) FROM games_in_progress";
+        try (Connection conn = Db.get();
+             PreparedStatement ps = conn.prepareStatement(requete);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private boolean creerNouvellePartie(int idJoueur1, int idJoueur2) {
+        // Vider la table games_in_progress
+        String suppression = "DELETE FROM games_in_progress";
+        String insertion = "INSERT INTO games_in_progress (id_player1, id_player2, score_j1, score_j2) VALUES (?, ?, 0, 0)";
+
+        try (Connection conn = Db.get()) {
+            // Supprimer les anciennes parties
+            try (PreparedStatement psSuppression = conn.prepareStatement(suppression)) {
+                psSuppression.executeUpdate();
+            }
+
+            // Créer la nouvelle partie
+            try (PreparedStatement psInsertion = conn.prepareStatement(insertion)) {
+                psInsertion.setInt(1, idJoueur1);
+                psInsertion.setInt(2, idJoueur2);
+                psInsertion.executeUpdate();
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private int obtenirIdJoueur(String nom) {
+        String requete = "SELECT id_player FROM players WHERE name = ?";
+        try (Connection conn = Db.get();
+             PreparedStatement ps = conn.prepareStatement(requete)) {
+            ps.setString(1, nom.trim());
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id_player");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    private void afficherAlerte(String titre, String message) {
+        Alert alerte = new Alert(Alert.AlertType.WARNING);
+        alerte.setTitle(titre);
+        alerte.setHeaderText(null);
+        alerte.setContentText(message);
+        alerte.showAndWait();
+    }
+
+    private int obtenirTailleGrilleSelectionnee() {
         if (gridSizeGroup == null) return 3;
         Toggle selected = gridSizeGroup.getSelectedToggle();
         if (selected != null && selected.getUserData() != null) {
@@ -54,39 +163,38 @@ public class CreationController {
         return 3;
     }
 
-    // autres méthodes (getPlayerName, db access...) inchangées — réutilise celles que tu as déjà
-    private String getPlayerName(TextField tf, ComboBox<String> cb) {
-        String text = (tf != null) ? tf.getText().trim() : "";
-        if (text != null && !text.isBlank()) return text;
+    private String obtenirNomJoueur(TextField tf, ComboBox<String> cb) {
+        String texte = (tf != null) ? tf.getText().trim() : "";
+        if (texte != null && !texte.isBlank()) return texte;
         if (cb != null && cb.getValue() != null) return cb.getValue().toString();
         return null;
     }
 
-    private void loadPlayersToComboBoxes() {
-        List<String> players = getPlayersFromDatabase();
-        ObservableList<String> items = FXCollections.observableArrayList(players);
+    private void chargerJoueursComboBoxes() {
+        List<String> joueurs = obtenirJoueursDepuisBaseDeDonnees();
+        ObservableList<String> items = FXCollections.observableArrayList(joueurs);
         player1ComboBox.setItems(items);
         player2ComboBox.setItems(items);
     }
 
-    private List<String> getPlayersFromDatabase() {
-        List<String> players = new ArrayList<>();
-        String query = "SELECT name FROM players ORDER BY name COLLATE NOCASE";
+    private List<String> obtenirJoueursDepuisBaseDeDonnees() {
+        List<String> joueurs = new ArrayList<>();
+        String requete = "SELECT name FROM players ORDER BY name COLLATE NOCASE";
         try (Connection conn = Db.get();
-             PreparedStatement ps = conn.prepareStatement(query);
+             PreparedStatement ps = conn.prepareStatement(requete);
              ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) players.add(rs.getString("name"));
+            while (rs.next()) joueurs.add(rs.getString("name"));
         } catch (SQLException e) { e.printStackTrace(); }
-        return players;
+        return joueurs;
     }
 
-    private void savePlayerIfNotExists(String name) {
-        if (name == null || name.isBlank()) return;
-        String insert = "INSERT INTO players(name) SELECT ? WHERE NOT EXISTS(SELECT 1 FROM players WHERE name = ?)";
+    private void sauvegarderJoueurSiNonExistant(String nom) {
+        if (nom == null || nom.isBlank()) return;
+        String insertion = "INSERT INTO players(name) SELECT ? WHERE NOT EXISTS(SELECT 1 FROM players WHERE name = ?)";
         try (Connection conn = Db.get();
-             PreparedStatement ps = conn.prepareStatement(insert)) {
-            ps.setString(1, name.trim());
-            ps.setString(2, name.trim());
+             PreparedStatement ps = conn.prepareStatement(insertion)) {
+            ps.setString(1, nom.trim());
+            ps.setString(2, nom.trim());
             ps.executeUpdate();
         } catch (SQLException e) { e.printStackTrace(); }
     }

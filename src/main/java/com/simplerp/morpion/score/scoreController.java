@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
+
 import java.sql.*;
 
 public class scoreController {
@@ -49,8 +51,12 @@ public class scoreController {
 
     private void goHome() {
         try {
-            Pane root = FXMLLoader.load(getClass().getResource("/com/simplerp/morpion/PageAccueil.fxml"));
-            scoreTable.getScene().setRoot(root);
+            Stage currentStage = (Stage) scoreTable.getScene().getWindow();
+            currentStage.close();
+
+            com.simplerp.morpion.accueil.AccueilApplication accueilApp = new com.simplerp.morpion.accueil.AccueilApplication();
+            accueilApp.start(new Stage());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

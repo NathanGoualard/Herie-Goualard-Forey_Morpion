@@ -15,6 +15,7 @@ public class AccueilApplication extends Application {
         Scene scene = new Scene(root, 600, 400);
         scene.getStylesheets().add(getClass().getResource("/com/simplerp/morpion/CSS/styleAccueil.css").toExternalForm());
         primaryStage.setTitle("Morpion - Accueil");
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -16,18 +16,17 @@ public class CreationApp extends Application {
         String cssCreation = "/com/simplerp/morpion/CSS/styleCreation.css";
 
         URL fxmlUrl = getClass().getResource(fxmlPath);
-        System.out.println("FXML URL: " + fxmlUrl);
         if (fxmlUrl == null) {
             throw new IllegalStateException("FXML file not found: " + fxmlPath);
         }
         Parent root = FXMLLoader.load(fxmlUrl);
+        primaryStage.setResizable(false);
 
         Scene scene = new Scene(root, 800, 500);
 
         URL cssUrl1 = getClass().getResource(cssCommon);
         URL cssUrl2 = getClass().getResource(cssCreation);
-        System.out.println("CSS common URL: " + cssUrl1);
-        System.out.println("CSS creation URL: " + cssUrl2);
+
         if (cssUrl1 != null) scene.getStylesheets().add(cssUrl1.toExternalForm());
         if (cssUrl2 != null) scene.getStylesheets().add(cssUrl2.toExternalForm());
 

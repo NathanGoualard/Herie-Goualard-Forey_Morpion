@@ -11,7 +11,7 @@ public class scoreApplication extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/com/simplerp/morpion/PageScore.fxml"));
         Scene scene = new Scene(root, 500, 450);
-        scene.getStylesheets().add(getClass().getResource("/com/simplerp/morpion/CSS/StyleJeu.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/com/simplerp/morpion/CSS/StyleScore.css").toExternalForm());
 
         stage.setResizable(false);
         stage.setTitle("Scores");
