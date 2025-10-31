@@ -33,49 +33,82 @@ public class MorpionPlateau {
   }
 
   public boolean verifierVictoire(int row, int column, Pion pion) {
-      if(verifHorizontale(row, column, pion)) return true;
-      if(verifVerticale(row, column, pion)) return true;
-      if(verifDiagonaleDroite(row, column, pion)) return true;
-      if(verifDiagonaleGauche(row, column, pion)) return true;
+    if(verifHorizontale(row, column, pion)) return true;
+    if(verifVerticale(row, column, pion)) return true;
+    if(verifDiagonaleDroite(row, column, pion)) return true;
+    if(verifDiagonaleGauche(row, column, pion)) return true;
     return false;
   }
 
+
+
   public boolean verifHorizontale(int row, int column, Pion pion) {
     int count = 0;
-    for(int i = column - countToWin - 1; i < column + countToWin; i++){
-      if(i < 0 || i >= rows) continue;
-      if(plateau[row][i] == pion) ++count;
-      if(count == countToWin) return true;
+    for(int i = 0; i < columns; i++){
+      if(plateau[row][i] == pion) {
+        ++count;
+        if(count == countToWin) return true;
+      } else {
+        count = 0;
+      }
     }
     return false;
   }
 
   public boolean verifVerticale(int row, int column, Pion pion) {
     int count = 0;
-    for(int i = row - countToWin - 1; i < row + countToWin; i++){
-      if(i < 0 || i >= rows) continue;
-      if(plateau[i][column] == pion) ++count;
-      if(count == countToWin) return true;
+
+    for(int i = 0; i < rows; i++){
+      if(plateau[i][column] == pion) {
+        ++count;
+        if(count == countToWin) return true;
+      } else {
+        count = 0;
+      }
     }
     return false;
   }
 
+
   public boolean verifDiagonaleDroite(int row, int column, Pion pion) {
     int count = 0;
-    for(int i = row - countToWin - 1; i < row + countToWin; i++){
-      if(i < 0 || i >= rows) continue;
-      if(plateau[i][i] == pion) ++count;
-      if(count == countToWin) return true;
+
+    int startRow = row - Math.min(row, column);
+    int startCol = column - Math.min(row, column);
+
+    int r = startRow;
+    int c = startCol;
+    while(r < rows && c < columns) {
+      if(plateau[r][c] == pion) {
+        ++count;
+        if(count == countToWin) return true;
+      } else {
+        count = 0;
+      }
+      r++;
+      c++;
     }
     return false;
   }
 
   public boolean verifDiagonaleGauche(int row, int column, Pion pion) {
     int count = 0;
-    for(int i = row + countToWin - 1; i >= 0; i--){
-      if(i >= rows) continue;
-      if(plateau[i][i] == pion) ++count;
-      if(count == countToWin) return true;
+
+    int offset = Math.min(row, columns - 1 - column);
+    int startRow = row - offset;
+    int startCol = column + offset;
+
+    int r = startRow;
+    int c = startCol;
+    while(r < rows && c >= 0) {
+      if(plateau[r][c] == pion) {
+        ++count;
+        if(count == countToWin) return true;
+      } else {
+        count = 0;
+      }
+      r++;
+      c--;
     }
     return false;
   }

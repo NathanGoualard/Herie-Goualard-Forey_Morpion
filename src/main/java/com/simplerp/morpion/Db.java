@@ -23,7 +23,8 @@ public class Db {
                     nb_victories INTEGER,
                     grid_size INTEGER,
                     id_player INTEGER NOT NULL,
-                    FOREIGN KEY(id_player) REFERENCES players(id_player)
+                    FOREIGN KEY(id_player) REFERENCES players(id_player),
+                    UNIQUE(id_player, grid_size)
                 )
             """);
 
