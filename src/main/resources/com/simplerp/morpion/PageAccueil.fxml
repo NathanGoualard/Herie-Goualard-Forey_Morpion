@@ -6,9 +6,9 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.simplerp.morpion.accueil.AccueilController"
-      alignment="CENTER" spacing="30" prefWidth="600" prefHeight="400">
+      alignment="CENTER" spacing="30" prefWidth="600" prefHeight="400"
+      styleClass="root">
     <Label text="MORPION" styleClass="titre"/>
-    <Button text="1 Joueur" styleClass="menu-bouton" onAction="#onJoueur1"/>
-    <Button text="2 Joueurs" styleClass="menu-bouton" onAction="#onJoueur2"/>
+    <Button text="Jouer" styleClass="menu-bouton" onAction="#onJouer"/>
     <Button text="Scores" styleClass="menu-bouton" onAction="#onScores"/>
 </VBox>

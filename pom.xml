@@ -138,7 +138,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.simplerp.morpion/com.simplerp.morpion.accueil.AccueilApplication</mainClass>
+                            <mainClass>com.simplerp.morpion/com.simplerp.morpion.accueil.AccueilApplication.AccueilApplication</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

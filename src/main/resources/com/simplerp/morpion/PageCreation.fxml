@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:controller="com.simplerp.morpion.accueil.CreationController"
+          alignment="CENTER" hgap="20" vgap="12" prefWidth="700" prefHeight="500"
+          styleClass="root">
+    <fx:define>
+        <!-- ToggleGroup declared here (not as a child of GridPane) -->
+        <ToggleGroup fx:id="gridSizeGroup" />
+    </fx:define>
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <Label text="CRÉER UNE PARTIE" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" styleClass="titre"/>
+    <Separator GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2"/>
+
+    <Label text="Joueur 1" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2" hgap="8" styleClass="grid-right">
+        <TextField fx:id="player1TextField" promptText="Écrire un nom..." GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="player1ComboBox" promptText="Ou choisir un joueur existant" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="260"/>
+    </GridPane>
+
+    <Label text="Joueur 2" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3" hgap="8" styleClass="grid-right">
+        <TextField fx:id="player2TextField" promptText="Écrire un nom..." GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="player2ComboBox" promptText="Ou choisir un joueur existant" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="260"/>
+    </GridPane>
+
+    <Label text="Taille de la grille" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+    <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4" hgap="12">
+        <RadioButton text="3 × 3" fx:id="rb3" toggleGroup="$gridSizeGroup" userData="3" selected="true" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <RadioButton text="6 × 6" fx:id="rb6" toggleGroup="$gridSizeGroup" userData="6" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <RadioButton text="9 × 9" fx:id="rb9" toggleGroup="$gridSizeGroup" userData="9" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+    </GridPane>
+
+    <Button text="Démarrer" onAction="#onStartGame" styleClass="menu-bouton" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+
+</GridPane>
