@@ -1,0 +1,74 @@
+
+.root {
+    -fx-background-color: #000000;
+    -fx-alignment: center;
+}
+
+
+.titre {
+    -fx-font-size: 44px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+    -fx-alignment: center;
+}
+
+
+.menu-bouton {
+    -fx-font-size: 22px;
+    -fx-text-fill: #FFFFFF;
+    -fx-background-color: #000000;
+    -fx-background-radius: 0;
+    -fx-padding: 12px 28px;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 2px;
+    -fx-border-radius: 0;
+    -fx-pref-width: 240px;
+    -fx-pref-height: 48px;
+    -fx-cursor: hand;
+    -fx-transition: all 0.12s;
+}
+
+
+.menu-bouton:hover {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+}
+
+
+.menu-bouton:pressed {
+    -fx-background-color: #CCCCCC;
+    -fx-text-fill: #000000;
+    -fx-border-color: #000000;
+}
+
+
+.textfield, .text-field, .combo-box {
+    -fx-background-color: #0a0a0a;
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #666666;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 6px 8px;
+    -fx-pref-height: 36px;
+}
+
+.text-field .text, .textfield .text {
+    -fx-fill: #FFFFFF;
+}
+
+.help-label {
+    -fx-text-fill: #AAAAAA;
+    -fx-font-size: 12px;
+    -fx-alignment: center;
+}
+
+.separator {
+    -fx-background-color: #333333;
+}
+
+
+.grid-right {
+    -fx-alignment: center-left;
+}
+
