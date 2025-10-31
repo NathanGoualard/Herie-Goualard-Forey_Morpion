@@ -3,24 +3,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.simplerp.morpion.score.ScoreController"
-            id="AnchorPane1">
-    <children>
-        <VBox fx:id="vboxPrincipal" alignment="CENTER" spacing="20" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
-            <Label fx:id="TitreScore" text="SCORES"/>
-            <VBox>
-                <TableView fx:id="scoreTable">
-                    <columns>
-                        <TableColumn fx:id="rankColumn" text="#"/>
-                        <TableColumn fx:id="playerColumn" text="Nom du joueur" />
-                        <TableColumn fx:id="scoreColumn" text="Score"/>
-                    </columns>
-                </TableView>
-            </VBox>
-
-        </VBox>
-    </children>
-</AnchorPane>
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.simplerp.morpion.score.ScoreController"
+      fx:id="vboxPrincipal"
+      spacing="20"
+      stylesheets="@style.css">
 
 
+    <HBox alignment="CENTER_LEFT">
+        <Button fx:id="homeBtn" text="← Retour"
+                style="-fx-background-color: #333333; -fx-text-fill: white;
+                       -fx-font-size: 14px; -fx-padding: 8px 15px;
+                       -fx-background-radius: 5px; -fx-cursor: hand;"/>
+    </HBox>
+
+
+    <Label fx:id="TitreScore" text="SCORES"/>
+
+
+    <TableView fx:id="scoreTable">
+        <columns>
+            <TableColumn fx:id="rankColumn" text="#"/>
+            <TableColumn fx:id="playerColumn" text="Nom du joueur"/>
+            <TableColumn fx:id="scoreColumn" text="Score"/>
+        </columns>
+    </TableView>
+
+</VBox>
