@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
+<VBox xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.simplerp.morpion.score.scoreController"
+      fx:id="vboxPrincipal"
+      spacing="20"
+      stylesheets="@style.css">
 
-</AnchorPane>
+
+    <HBox alignment="CENTER_LEFT">
+        <Button fx:id="homeBtn" text="← Retour"
+                style="-fx-background-color: #333333; -fx-text-fill: white;
+                       -fx-font-size: 14px; -fx-padding: 8px 15px;
+                       -fx-background-radius: 5px; -fx-cursor: hand;"/>
+    </HBox>
+
+
+    <Label fx:id="TitreScore" text="SCORES"/>
+
+
+    <TableView fx:id="scoreTable">
+        <columns>
+            <TableColumn fx:id="rankColumn" text="#"/>
+            <TableColumn fx:id="playerColumn" text="Nom du joueur"/>
+            <TableColumn fx:id="scoreColumn" text="Score"/>
+        </columns>
+    </TableView>
+
+</VBox>
