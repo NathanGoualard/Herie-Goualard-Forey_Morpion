@@ -1,5 +1,8 @@
 package com.simplerp.morpion.accueil;
 
+// Contrôleur de la page d’accueil.
+// Gère les actions des boutons "Jouer" et "Scores" et le changement de scène.
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +23,7 @@ public class AccueilController {
             System.out.println("AccueilleController initialisé");
         }
 
+        // Ouvre la page de création de partie
         @FXML
         public void onJouer(ActionEvent event) {
             System.out.println("Bouton Jouer cliqué !");
@@ -44,6 +48,7 @@ public class AccueilController {
             }
         }
 
+    // Ouvre la page des scores
     @FXML
     public void onScores(ActionEvent event) {
         try {

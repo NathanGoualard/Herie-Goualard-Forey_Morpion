@@ -1,5 +1,8 @@
 package com.simplerp.morpion.pageJeu;
 
+// Application JavaFX pour la page du jeu.
+// Charge la grille, applique les styles et gère la fermeture propre de la partie.
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

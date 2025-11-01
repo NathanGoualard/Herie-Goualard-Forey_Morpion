@@ -1,5 +1,10 @@
 package com.simplerp.morpion.accueil;
 
+// Contrôleur de la page de création de partie.
+// Gère la sélection ou création des joueurs, la taille de la grille et le lancement du jeu.
+
+import javafx.fxml.FXML;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -19,12 +24,14 @@ import javafx.collections.ObservableList;
 
 public class CreationController {
 
+    // Liens avec les éléments FXML
     @FXML private TextField player1TextField;
     @FXML private TextField player2TextField;
     @FXML private ComboBox<String> player1ComboBox;
     @FXML private ComboBox<String> player2ComboBox;
     @FXML private ToggleGroup gridSizeGroup;
 
+    // Initialise la page et charge les joueurs depuis la base de données
     @FXML
     public void initialize() {
         chargerJoueursComboBoxes();
@@ -33,6 +40,7 @@ public class CreationController {
         }
     }
 
+    // Démarre une nouvelle partie
     @FXML
     public void onStartGame(ActionEvent event) {
         // Récupérer les noms des joueurs

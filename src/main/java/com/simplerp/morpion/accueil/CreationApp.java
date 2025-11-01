@@ -1,5 +1,8 @@
 package com.simplerp.morpion.accueil;
 
+// Application JavaFX pour la page de création de partie.
+// Charge le FXML et applique les styles CSS.
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

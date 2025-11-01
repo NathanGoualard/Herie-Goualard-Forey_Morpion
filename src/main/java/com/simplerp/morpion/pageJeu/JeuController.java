@@ -17,6 +17,7 @@ import java.sql.SQLException;
 
 public class JeuController {
 
+    // Références aux éléments de l’interface FXML
     @FXML private GridPane grilleJeu;
     @FXML private Label labelJoueur;
     @FXML private Label scoreJ1Label;
@@ -24,6 +25,7 @@ public class JeuController {
     @FXML private Button boutonRecommencer;
     @FXML private Button boutonAccueil;
 
+    // Variables de gestion du jeu
     private MorpionPlateau plateau;
     private Button[][] boutons;
     private Pion joueurActuel;
@@ -36,12 +38,12 @@ public class JeuController {
     private int tailleGrille = 3;
     private boolean partieInitialisee = false;
 
+    // Masque le label de joueur au démarrage
     @FXML
     public void initialize() {
-        // Ne rien faire ici, on attend initialiserPartie()
         labelJoueur.setVisible(false);
     }
-
+    // Initialise une nouvelle partie avec les joueurs, la taille de grille et leurs scores
     public void initialiserPartie(String nomJ1, String nomJ2, int taille, int idJ1, int idJ2) {
         this.nomJoueur1 = nomJ1 + " X";
         this.nomJoueur2 = nomJ2 + " O";
@@ -65,6 +67,7 @@ public class JeuController {
         mettreAJourScores();
     }
 
+    // Charge les scores enregistrés dans la base de données
     private void chargerScoresDepuisBase() {
         try (Connection connexion = Db.get()) {
             PreparedStatement requetePartie = connexion.prepareStatement(
@@ -92,6 +95,7 @@ public class JeuController {
         }
     }
 
+    // Configure l’affichage de la grille de jeu
     private void configurerGrille() {
         grilleJeu.getChildren().clear();
         grilleJeu.setHgap(5);
@@ -107,6 +111,7 @@ public class JeuController {
         }
     }
 
+    // Crée et retourne un bouton représentant une case de la grille
     private Button creerBoutonCase(int ligne, int colonne) {
         Button bouton = new Button("");
         bouton.setPrefSize(80, 80);
@@ -152,7 +157,7 @@ public class JeuController {
 
         return bouton;
     }
-
+    // Gère le clic d’un joueur sur une case
     private void gererClicCase(int ligne, int colonne, Button bouton) {
         if (!bouton.getText().isEmpty()) {
             return;
@@ -172,7 +177,7 @@ public class JeuController {
         }
         changerJoueur();
     }
-
+    // Met à jour l’apparence d’un bouton en fonction du pion joué
     private void mettreAJourAffichageBouton(Button bouton, Pion pion) {
         if (pion == Pion.CROIX) {
             bouton.setText("X");
@@ -197,11 +202,13 @@ public class JeuController {
         }
     }
 
+    // Change le joueur actif
     private void changerJoueur() {
         joueurActuel = (joueurActuel == Pion.CROIX) ? Pion.ROND : Pion.CROIX;
         mettreAJourLabelJoueur();
     }
 
+    // Met à jour les labels indiquant quel joueur doit jouer
     private void mettreAJourLabelJoueur() {
         if (joueurActuel == Pion.CROIX) {
             scoreJ1Label.setStyle(
@@ -232,12 +239,14 @@ public class JeuController {
         }
     }
 
+    // Met à jour les scores affichés à l’écran
     private void mettreAJourScores() {
         scoreJ1Label.setText(nomJoueur1 + " : " + scoreJ1);
         scoreJ2Label.setText(nomJoueur2 + " : " + scoreJ2);
         mettreAJourLabelJoueur();
     }
 
+    // Vérifie si la grille est pleine
     private boolean grilleEstPleine() {
         for (int ligne = 0; ligne < tailleGrille; ligne++) {
             for (int colonne = 0; colonne < tailleGrille; colonne++) {
@@ -249,6 +258,7 @@ public class JeuController {
         return true;
     }
 
+    // Gère le cas où un joueur remporte la partie
     private void gererVictoire() {
         String gagnantNom;
 
@@ -290,6 +300,7 @@ public class JeuController {
         recommencerJeu();
     }
 
+    // Gère le cas d’un match nul
     private void gererMatchNul() {
         Alert alerte = new Alert(Alert.AlertType.INFORMATION);
         alerte.setTitle("Match nul");
@@ -300,6 +311,7 @@ public class JeuController {
         recommencerJeu();
     }
 
+    // Réinitialise la grille pour recommencer une partie
     @FXML
     private void recommencerJeu() {
         plateau = new MorpionPlateau(tailleGrille, tailleGrille, tailleGrille);
@@ -323,6 +335,7 @@ public class JeuController {
         mettreAJourLabelJoueur();
     }
 
+    // Retourne à la page d’accueil et sauvegarde la partie
     @FXML
     private void allerAccueil() {
         sauvegarderPartieEnCours();
@@ -340,6 +353,7 @@ public class JeuController {
         }
     }
 
+    // Sauvegarde les scores actuels dans la base de données
     public void sauvegarderPartieEnCours() {
         try (Connection connexion = Db.get()) {
 

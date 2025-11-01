@@ -1,4 +1,5 @@
 package com.simplerp.morpion.accueil;
+// Déclare le package de la classe d’accueil de l’application.
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,13 +8,18 @@ import javafx.scene.Parent;
 import javafx.stage.Stage;
 
 import java.util.Objects;
+// Importation des bibliothèques nécessaires pour JavaFX.
 
+// Classe principale qui lance la fenêtre d’accueil du jeu Morpion.
 public class AccueilApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+        // Charge la page FXML de l’accueil et son style CSS.
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/simplerp/morpion/PageAccueil.fxml")));
         Scene scene = new Scene(root, 600, 400);
         scene.getStylesheets().add(getClass().getResource("/com/simplerp/morpion/CSS/styleAccueil.css").toExternalForm());
+
+        // Configure et affiche la fenêtre principale
         primaryStage.setTitle("Morpion - Accueil");
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
